@@ -1,0 +1,202 @@
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes signal {
+    0% {
+        background: rgba(64, 224, 208, 0.3);
+    }
+    50% {
+        background: rgba(64, 224, 208, 0.8);
+    }
+    100% {
+        background: rgba(64, 224, 208, 0.3);
+    }
+}
+
+.agent {
+    /* 添加到现有的agent样式中 */
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.agent:hover {
+    animation: none;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(64, 224, 208, 0.5);
+}
+
+.connection.active {
+    animation: signal 1s ease-in-out;
+}
+
+/* 添加信息传递的粒子效果 */
+.signal-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(64, 224, 208, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* 添加到现有的动画样式中 */
+@keyframes processing {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(64, 224, 208, 0.5); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(64, 224, 208, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(64, 224, 208, 0.5); }
+}
+
+.agent.processing {
+    animation: processing 1s ease-in-out infinite;
+}
+
+.agent[data-state="active"] {
+    background: rgba(64, 224, 208, 0.9);
+    box-shadow: 0 0 20px rgba(64, 224, 208, 0.8);
+}
+
+.agent[data-state="processing"] {
+    background: rgba(255, 165, 0, 0.8);
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+}
+
+.agent[data-state="learning"] {
+    background: rgba(147, 112, 219, 0.8);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.6);
+}
+
+.agent[data-mood="happy"] { border-color: #4CAF50; }
+.agent[data-mood="tired"] { border-color: #FFC107; }
+.agent[data-mood="stressed"] { border-color: #F44336; }
+
+.chat-message.assistant .message-content {
+    position: relative;
+}
+
+.chat-message.assistant .message-content::after {
+    content: '▋';
+    position: absolute;
+    right: -12px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.chat-message.assistant:last-child .message-content {
+    animation: typing 0.05s steps(1) infinite;
+}
+
+@keyframes typing {
+    0%, 100% { border-right-color: transparent; }
+    50% { border-right-color: #fff; }
+}
+
+.chat-message.assistant {
+    position: relative;
+}
+
+.chat-message.assistant .message-content {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 添加打字机光标效果 */
+.chat-message.assistant:last-child .message-content::after {
+    content: '|';
+    position: relative;
+    margin-left: 2px;
+    animation: cursor-blink 0.8s infinite;
+}
+
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 添加打字机声音效果的视觉反馈 */
+.chat-message.assistant.typing {
+    animation: typing-feedback 0.1s ease;
+}
+
+@keyframes typing-feedback {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+    100% { transform: translateY(0); }
+}
+
+/* 修改能量指示器样式 */
+.energy-indicator {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: currentColor;
+    transform-origin: center;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 不同能量等级的颜色 */
+.energy-indicator[data-level="high"] {
+    color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.energy-indicator[data-level="medium"] {
+    color: #FFC107;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+.energy-indicator[data-level="low"] {
+    color: #F44336;
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+}
+
+/* 能量变化动画 */
+@keyframes energyPulse {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.energy-indicator.recovering {
+    animation: energyPulse 2s linear infinite;
+}
+
+/* 疲劳提示动画 */
+.exhausted-indicator {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: float-up 3s ease-out;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-30px);
+        opacity: 0;
+    }
+} 
